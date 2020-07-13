@@ -1,0 +1,64 @@
+{
+  "root": true,
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-prettier",
+    "stylelint-config-idiomatic-order",
+    "stylelint-config-airbnb"
+  ],
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "rules" : {
+    "at-rule-blacklist": ["extend"],
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["at-root", "include", "mixin", "function", "content", "each", "if", "else"]
+      }
+    ],
+    "at-rule-empty-line-before": [
+      "always",
+      {
+        "ignore": ["inside-block"]
+      }
+    ],
+    "declaration-block-semicolon-newline-after": "always-multi-line",
+    "declaration-block-single-line-max-declarations": 2,
+    "declaration-colon-newline-after": "always-multi-line",
+    "declaration-colon-space-after": "always-single-line",
+    "declaration-empty-line-before": [
+      "never",
+      {
+        "ignore": ["after-comment"]
+      }
+    ],
+    "max-nesting-depth": [
+      5,
+      {
+        "ignore": ["pseudo-classes"]
+      }
+    ],
+    "no-extra-semicolons": true,
+    "number-leading-zero": "always",
+    "selector-max-type": 0,
+    "selector-max-attribute": 0,
+    "selector-no-qualifying-type": true,
+    "order/order": [
+      "custom-properties",
+      "dollar-variables",
+      {
+        "type": "at-rule",
+        "name": "include",
+        "hasBlock": false
+      },
+      "declarations",
+      {
+        "type": "at-rule",
+        "name": "include",
+        "hasBlock": true
+      },
+      "at-rules"
+		]
+  }
+}
