@@ -1,5 +1,9 @@
 <% var data = {
-  title: "Solution"
+  title: "Page",
+  menu: [
+    {url: "/", name: "index", active: false},
+    {url: "/page.html", name: "page", active: true}
+  ]
 }; %>
 
 <%= _.template(require('./../includes/header.html').default)(data) %>
