@@ -1,25 +1,42 @@
 /* eslint-disable */
 
 const path = require('path');
+const fs = require('fs');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
-module.exports = {
+function generateHtmlPlugins(templateDir) {
+  const templateFiles = fs.readdirSync(path.resolve(__dirname, templateDir));
+  return templateFiles.map(item => {
+    const parts = item.split('.');
+    const name = parts[0];
+    const extension = parts[1];
+    return new HtmlWebpackPlugin({
+      filename: `${name}.html`,
+      template: path.resolve(__dirname, `${templateDir}/${name}.${extension}`),
+      inject: false,
+    })
+  })
+}
+
+const htmlPlugins = generateHtmlPlugins('./src/html/views')
+
+const config = {
   mode: 'development',
   devtool: 'source-map',
-  entry: ['./src/js/index.js', './src/styles/style.scss'],
-  output: {
-    path: path.resolve(__dirname, 'public'),
-    filename: 'js/index.js'
-  },
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     compress: true,
     port: 3000,
     overlay: true
+  },
+  entry: ['./src/js/index.js', './src/styles/style.scss'],
+  output: {
+    path: path.resolve(__dirname, 'public'),
+    filename: 'js/index.js'
   },
   module: {
     rules: [
@@ -112,15 +129,15 @@ module.exports = {
             }
           }
         ]
-      }
+      },
+      {
+        test: /\.html$/,
+        include: path.resolve(__dirname, 'src/html/includes'),
+        use: ['raw-loader']
+      },
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: 'src/index.html',
-      filename: 'index.html'
-    }),
     new MiniCssExtractPlugin({
       filename: 'styles/style.css'
     }),
@@ -135,5 +152,12 @@ module.exports = {
         to: 'assets'
       }
     ])
-  ]
+  ].concat(htmlPlugins)
+};
+
+module.exports = (env, argv) => {
+  if (argv.mode === 'production') {
+    config.plugins.push(new CleanWebpackPlugin());
+  }
+  return config;
 };

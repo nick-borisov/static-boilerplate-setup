@@ -2,8 +2,6 @@
 import Switcher from './plugins/switcher';
 import Modal from './plugins/modal';
 
-import elementClosest from 'element-closest';
-
 // Build svg sprite
 function requireAll(r) {
   r.keys().forEach(r);

@@ -1,6 +1,7 @@
 # Scripts
 
 ### Project build
+
 `yarn build`
 
 ### Project development
@@ -15,28 +16,18 @@
 
 ### SVG
 
-On project available svg sprite. All icons from `assets/images/icons/sprite-...` folders automatically include to inline HTML sprite via js. Example usage:
+On project available svg sprite. All icons from `assets/images/icons/sprite-...` folders will automatically include to HTML via js. Example usage:
 ```html
 <svg>
     <use xlink:href="#<ICON-NAME>"/>
 </svg>
 ```
 
-`sprite-complex` contain complex icons without elements formatting. Can be changed only size.
+`sprite-complex` contain complex icons without elements formatting. Can be changed only size. Use for multi-colors, shadowed icons etc.
 
-`spite-simple` contain "one color" icons where elements are not intersect, can be changed color and size.
+`spite-simple` contain "one color" icons where elements are not intersect, can be changed color and size. Use for simple one color icons.
 
-
-> In case when including sprite will be changed and you will need a static file, look for comments in `webpack.config.js`. And remove script from `src/js/main.js`
-
-Rules when icon should be added in sprite:
-* reusable
-* single color without no shadows
-
-By default there is a few groups:
-* UI - for interface interactions
-* Social - social networks icons
-* Other - do not included to the sprite, since do not satisfied the rules
+> In case when you need a static file, look for comments in `For static sprite file` in `webpack.config.js`. And remove script from `src/js/main.js`
 
 ### HTML / CSS
 [Use BEM methodology](https://en.bem.info/methodology/).

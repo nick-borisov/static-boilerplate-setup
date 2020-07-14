@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production",
+    "build": "webpack --mode production && prettier --print-width=120 --parser html --write public/*.html",
     "js-lint": "eslint src/js/*.js",
     "style-lint": "stylelint src/styles/**/*.{css,scss}",
     "lint": "yarn js-lint && yarn style-lint"
@@ -32,6 +32,7 @@
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^1.19.1",
+    "raw-loader": "^4.0.1",
     "sass-loader": "^8.0.2",
     "stylelint": "^13.1.0",
     "stylelint-config-airbnb": "^0.0.0",
